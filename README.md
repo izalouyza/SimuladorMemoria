@@ -2,8 +2,9 @@
 
 Repositório contendo o projeto desenvolvido para a disciplina de **Sistemas Operacionais**, com foco na simulação do gerenciamento de memória utilizando **paginação**.
 
-O sistema tem como objetivo demonstrar, de forma visual e interativa, o funcionamento da **tradução de endereços lógicos para físicos**, da **tabela de páginas**, do **mapeamento entre páginas e quadros** e da divisão da memória em páginas de tamanho fixo.
+O sistema tem como objetivo demonstrar, de forma visual e interativa, o funcionamento da **tradução de endereços lógicos para físicos**, do **mapeamento entre páginas e quadros** e da **tabela de páginas**, facilitando o aprendizado dos conceitos fundamentais de gerenciamento de memória.
 
+![Linguagem](https://img.shields.io/badge/Linguagem-JavaScript-yellow)
 ![Último commit](https://img.shields.io/github/last-commit/izalouyza/SimuladorMemoria)
 
 ---
@@ -22,52 +23,70 @@ O sistema tem como objetivo demonstrar, de forma visual e interativa, o funciona
 
 # Autores
 
-**Discentes:**<br> <a href="https://github.com/izalouyza">Izadora Louyza Silva Figueiredo</a><br> <a href="https://github.com/livianlucena">Lívian Maria Lucena Gomes Pinheiro</a><br> <a href="https://github.com/tivitoriarocha">Maria Vitória Fernandes Rocha</a><br> <a href="https://github.com/Victor350br">Victor Hugo de Oliveira</a><br>
+**Discentes:**<br> <a href="https://github.com/izalouyza">Izadora Louyza Silva Figueiredo</a><br> <a href="https://github.com/livianlucena">Lívian Maria Lucena Gomes Pinheiro</a><br> <a href="https://github.com/tivitoriarocha">Maria Vitória Fernandes Rocha</a><br> <a href="https://github.com/Victor350br">Victor Hugo de Oliveira</a>
 
 ---
 
 # Propósito do Projeto
 
-O projeto tem como finalidade simular o funcionamento do gerenciamento de memória paginada, permitindo:
+O projeto tem como finalidade simular o funcionamento da memória paginada, permitindo:
 
 * Compreender a divisão da memória lógica em páginas.
 * Visualizar o mapeamento entre páginas e quadros da memória física.
 * Entender o processo de tradução de endereços lógicos para endereços físicos.
-* Analisar a quantidade de bits utilizados para representar páginas e deslocamentos (*offsets*).
+* Analisar a quantidade de bits utilizados para representar páginas e deslocamentos (*offset*).
 
-O foco principal é fornecer uma ferramenta **didática, visual e interativa**, facilitando o aprendizado dos conceitos fundamentais de **Gerenciamento de Memória** em Sistemas Operacionais.
+O foco principal é fornecer uma ferramenta **didática, visual e interativa**, auxiliando no aprendizado dos conceitos de **Gerenciamento de Memória** em Sistemas Operacionais.
 
 ---
 
 # Funcionalidades Principais
 
-| Funcionalidade                   | Descrição                                                                                    |
-| -------------------------------- | -------------------------------------------------------------------------------------------- |
-| Configuração da Memória          | Permite definir o tamanho da memória lógica, memória física e das páginas.                   |
-| Cálculo dos Bits                 | Calcula automaticamente os bits destinados ao número da página e ao deslocamento (*offset*). |
-| Geração da Tabela de Páginas     | Exibe o mapeamento entre páginas da memória lógica e quadros da memória física.              |
-| Tradução de Endereços            | Converte um endereço lógico em seu endereço físico correspondente.                           |
-| Identificação de Página e Offset | Mostra em qual página o endereço está localizado e qual seu deslocamento.                    |
-| Visualização Didática            | Apresenta de forma clara a organização da memória paginada para fins educacionais.           |
+| Funcionalidade                   | Descrição                                                                  |
+| -------------------------------- | -------------------------------------------------------------------------- |
+| Configuração da Memória          | Permite definir o tamanho da memória lógica, memória física e das páginas. |
+| Cálculo dos Bits                 | Calcula automaticamente os bits necessários para página e deslocamento.    |
+| Tabela de Páginas                | Exibe o mapeamento entre páginas e quadros da memória física.              |
+| Tradução de Endereços            | Converte endereços lógicos em endereços físicos.                           |
+| Identificação de Página e Offset | Exibe a página correspondente e seu deslocamento.                          |
+| Simulação Didática               | Facilita a visualização do funcionamento da memória paginada.              |
 
 ---
 
 # Tecnologias Utilizadas
 
+* HTML5
+* CSS3
+* JavaScript
 
 ---
 
 # Arquitetura do Sistema
 
-O sistema foi estruturado em camadas simples, separando responsabilidades entre lógica e interface:
+O sistema foi organizado de forma simples, separando a interface da lógica da aplicação.
 
+* **Interface (`index.html` + `style.css`):**
+  Responsável pela interação com o usuário e pela apresentação das informações da simulação.
+
+* **Lógica (`app.js`):**
+  Responsável pelos cálculos de paginação, geração da tabela de páginas e tradução dos endereços.
+
+* **Documentação (`teste.md`):**
+  Arquivo utilizado para documentação e testes durante o desenvolvimento.
 
 ---
 
 # Estrutura de Pastas
 
-```bash
-
+```text
+projeto/
+├── src/
+│   ├── app.js
+│   ├── index.html
+│   ├── style.css
+│   └── teste.md
+├── .gitignore
+└── README.md
 ```
 
 ---
@@ -76,28 +95,24 @@ O sistema foi estruturado em camadas simples, separando responsabilidades entre 
 
 ## Pré-requisitos
 
+* Navegador Web atualizado.
 
-
-### 1. Clone o repositório
+## 1. Clone o repositório
 
 ```bash
 git clone https://github.com/izalouyza/SimuladorMemoria
 ```
 
-### 2. Acesse a pasta do projeto
+## 2. Acesse a pasta do projeto
 
 ```bash
 cd SimuladorMemoria
 ```
 
-### 3. Instale as dependências
+## 3. Abra a pasta `src`
 
-```bash
+Abra o arquivo `index.html` diretamente no navegador ou utilize uma extensão como **Live Server** no Visual Studio Code.
 
-```
+Caso utilize o Live Server, basta clicar com o botão direito em `src/index.html` e selecionar **Open with Live Server**.
 
-### 4. Execute o simulador
-
-```bash
-
-```
+O simulador será iniciado automaticamente no navegador.
