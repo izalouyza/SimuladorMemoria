@@ -32,7 +32,7 @@ function atualizarConfiguracoes(isInitial = false) {
   // Validações obrigatórias baseadas em Hardware (Potências de 2)
   if (!isPowerOfTwo(pSize) || !isPowerOfTwo(lSize) || !isPowerOfTwo(phSize)) {
     errorDiv.innerText =
-      "Erro: Todos os tamanhos configurados devem ser potências de 2 (Ex: 4, 8, 16, 64, 128...).";
+      "Erro: Todos os tamanhos configurados devem ser potências de 2 (Ex.: 4, 8, 16, 64, 128...).";
     errorDiv.style.display = "block";
     return;
   }
@@ -79,7 +79,7 @@ function atualizarConfiguracoes(isInitial = false) {
             <td>
                 <input type="number" min="0" max="${totalFrames - 1}" 
                        class="input-frame" id="frame-input-${i}" 
-                       value="${valueMapped}" placeholder="Ex: 0-${totalFrames - 1}">
+                       value="${valueMapped}" placeholder="Ex.: 0-${totalFrames - 1}">
             </td>
         `;
     tbody.appendChild(tr);
@@ -125,7 +125,7 @@ function traduzirEndereco() {
         <div class="step">
             <div class="step-title">Passo 1: Conversão Binária e Divisão de Bits</div>
             <div class="step-desc">
-                O endereço lógico decimal <strong>${addrInput}</strong> convertido para binário com representação de ${bitsM} bits ($m = ${bitsM}$):
+                O endereço lógico decimal <strong>${addrInput}</strong> convertido para binário com representação de ${bitsM} bits (m = ${bitsM}):
                 <div class="binary-display">
                     <span class="highlight-p">${pBinStr || "Ø"}</span><span class="highlight-d">${dBinStr}</span>
                 </div>
