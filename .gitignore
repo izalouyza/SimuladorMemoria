@@ -1,0 +1,12 @@
+# Extensões e arquivos de configuração do VS Code
+.vscode/
+.history/
+
+# Arquivos de log e temporários do sistema operacional
+*.log
+.DS_Store
+Thumbs.db
+
+# Caso você decida instalar pacotes via npm no futuro (Vercel, etc.)
+node_modules/
+.env

@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Simulador de Paginação de Memória Virtual</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <header>
+      <h1>Simulador de Paginação de Memória Virtual</h1>
+    </header>
+
+    <div class="dashboard">
+      <div class="card">
+        <h2>1. Configurações do Sistema</h2>
+        <div id="config-error" class="alert-error"></div>
+
+        <div class="form-group">
+          <label for="pageSize">Tamanho da Página (Bytes):</label>
+          <input type="number" id="pageSize" value="16" />
+        </div>
+        <div class="form-group">
+          <label for="logicSize">Tamanho da Memória Lógica (Bytes):</label>
+          <input type="number" id="logicSize" value="64" />
+        </div>
+        <div class="form-group">
+          <label for="physicalSize">Tamanho da Memória Física (Bytes):</label>
+          <input type="number" id="physicalSize" value="128" />
+        </div>
+        <button class="btn" onclick="atualizarConfiguracoes()">
+          Aplicar e Reiniciar
+        </button>
+      </div>
+
+      <div class="card">
+        <h2>2. Arquitetura de Endereçamento & Tabela de Páginas</h2>
+        <p class="card-subtitle">
+          Divisão do Endereço Lógico baseado nos expoentes das potências de 2:
+        </p>
+
+        <div class="bit-box-container">
+          <div class="bit-chunk chunk-p" id="box-bits-p">
+            <span id="label-bits-p">-</span> bits
+            <span class="bit-label">Página (p)</span>
+          </div>
+          <div class="bit-chunk chunk-d" id="box-bits-d">
+            <span id="label-bits-d">-</span> bits
+            <span class="bit-label">Deslocamento (d)</span>
+          </div>
+        </div>
+
+        <div class="table-container">
+          <h3>Mapeamento de Páginas para Quadros (Frames)</h3>
+          <p class="card-subtitle-small">
+            Preencha os quadros físicos correspondentes. Deixe em branco para
+            simular Page Fault.
+          </p>
+          <table id="page-table">
+            <thead>
+              <tr>
+                <th>Página Lógica (p)</th>
+                <th>Quadro Físico (f)</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="card full-width">
+        <h2>3. Módulo de Tradução de Endereço</h2>
+        <div class="translation-trigger">
+          <div class="form-group mb-0">
+            <label for="logicalAddressInput">Endereço Lógico Decimal:</label>
+            <input type="number" id="logicalAddressInput" value="21" />
+          </div>
+          <button class="btn btn-auto" onclick="traduzirEndereco()">
+            Traduzir
+          </button>
+        </div>
+
+        <div id="translation-output">
+          <p class="text-muted">
+            Insira um endereço acima e clique em Traduzir para ver o fluxo passo
+            a passo.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <script src="app.js"></script>
+  </body>
+</html>
