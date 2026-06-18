@@ -7,6 +7,6 @@
 .DS_Store
 Thumbs.db
 
-# Caso você decida instalar pacotes via npm no futuro (Vercel, etc.)
+# Dependências do Node.js
 node_modules/
 .env
