@@ -380,7 +380,7 @@ th {
   margin-top: 20px;
   margin-bottom: 30px;
   padding-bottom: 10px;
-  border-bottom: 5px solid var(--btn-bg); /* Esta é a linha longa */
+  border-bottom: 5px solid var(--btn-bg);
   display: inline-block;
   width: 100%;
 }
@@ -473,9 +473,13 @@ body {
   flex: 1;
 }
 
-/* ==========================================================================
-   REGRAS ADICIONADAS PARA ADAPTAÇÃO EM CELULAR (MOBILE RESPONSIVENESS)
-   ========================================================================== */
+.manual-layout {
+  max-width: 800px;
+  margin: 20px auto;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
 
 @media (max-width: 768px) {
   body {
@@ -483,19 +487,19 @@ body {
   }
 
   header {
-    flex-direction: column;
-    gap: 15px;
-    padding: 15px;
-    text-align: center;
+    flex-direction: column !important;
+    gap: 15px !important;
+    padding: 15px !important;
+    text-align: center !important;
   }
 
   header h1 {
-    white-space: normal; /* Permite que o título quebre linha no celular */
-    font-size: 1.3rem;
-    border-left: none;
-    border-bottom: 3px solid var(--btn-bg);
-    padding-left: 0;
-    padding-bottom: 8px;
+    white-space: normal !important; /* Permite que o título quebre linha no celular */
+    font-size: 1.2rem !important;
+    border-left: none !important;
+    border-bottom: 3px solid var(--btn-bg) !important;
+    padding-left: 0 !important;
+    padding-bottom: 8px !important;
   }
 
   .dashboard {
@@ -520,14 +524,12 @@ body {
     width: 100%;
   }
 
-  /* Evita estouro de tabelas em telas muito pequenas */
   .table-container {
     overflow-x: auto;
     width: 100%;
     -webkit-overflow-scrolling: touch;
   }
 
-  /* Ajuste para os blocos de bits (p e d) empilharem corretamente se necessário */
   .bit-box-container {
     flex-wrap: wrap;
   }
@@ -543,4 +545,39 @@ body {
   .chunk-d {
     border-radius: 0 0 6px 6px;
   }
+
+  .manual-layout {
+    padding: 0 15px !important;
+    margin-top: 10px !important;
+  }
+
+  .manual-title {
+    font-size: 1.6rem !important;
+    width: 100% !important;
+  }
+}
+
+.footer-links {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.footer-links a {
+  display: inline-flex;
+  align-items: center;
+}
+
+.footer-links a svg {
+  width: 20px;
+  height: 20px;
+  fill: var(--btn-bg);
+  vertical-align: middle;
+  transition: transform 0.2s ease, fill 0.2s ease;
+}
+
+.footer-links a:hover svg {
+  fill: var(--btn-hover);
+  transform: scale(1.1);
 }
