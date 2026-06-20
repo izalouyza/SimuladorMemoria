@@ -20,167 +20,96 @@
       <h1>Simulador de Paginação de Memória Virtual</h1>
       <div class="theme-toggle-container">
         <a href="index.html" class="btn-theme" title="Voltar ao Simulador">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          >
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <path d="m15 18-6-6 6-6" />
           </svg>
         </a>
 
-        <button
-          class="btn btn-theme"
-          id="themeToggleBtn"
-          onclick="toggleTheme()"
-          title="Alternar Tema"
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          >
-            <path
-              d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401"
-            />
+        <button class="btn btn-theme" id="themeToggleBtn" onclick="toggleTheme()" title="Alternar Tema">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401" />
           </svg>
         </button>
       </div>
     </header>
 
     <main class="manual-layout">
-      <h2 class="manual-title" style="text-align: center">
-        Manual do Usuário: Entendendo o Sistema
-      </h2>
+      <h2 class="manual-title" style="text-align: center">Manual do Usuário</h2>
 
       <div class="card">
         <h2>1. O que é este simulador?</h2>
-        <p>
-          Este simulador foi criado como uma ferramenta prática e interativa
-          para tornar compreensível o conceito de
-          <strong>Gerenciamento de Memória</strong>, com foco total na técnica
-          de <strong>Paginação</strong>.
-        </p>
-        <p>
-          No funcionamento de um computador, o sistema operacional precisa
-          organizar os dados na memória RAM de forma extremamente eficiente.
-          Frequentemente, um programa não encontra um espaço grande o suficiente
-          e contínuo para ser carregado. A paginação resolve esse gargalo
-          dividindo o processo em pequenos "pedaços" uniformes (as páginas), que
-          podem ser alocados em locais espalhados pela memória física (os
-          quadros).
-        </p>
-        <p>
-          Este sistema atua exatamente como uma
-          <strong>MMU (Memory Management Unit)</strong>. Ele realiza a ponte
-          "invisível" entre o endereço que o software solicita e o endereço
-          físico onde o dado realmente reside. O objetivo é permitir que você
-          visualize, passo a passo, como essa tradução ocorre e como o sistema
-          lida com a organização da memória.
-        </p>
+        <p>Este simulador foi desenvolvido como uma ferramenta didática e interativa para facilitar a compreensão do conceito de Gerenciamento de Memória, com foco na técnica de Paginação, um dos principais mecanismos utilizados pelos sistemas operacionais modernos.</p>
+        <p>O objetivo é transformar conceitos teóricos em uma experiência prática, permitindo que o usuário visualize o funcionamento do gerenciamento de memória de forma simples, dinâmica e intuitiva.</p>
+        <p>Durante a execução de um programa, o sistema operacional precisa administrar a memória RAM de maneira eficiente. Entretanto, nem sempre existe um espaço contínuo disponível para armazenar todo o processo. A paginação resolve esse problema dividindo o processo em blocos de tamanho fixo, chamados páginas, que podem ser distribuídos em diferentes posições da memória física, conhecidas como quadros (frames).</p>
+        <p>Este simulador reproduz, de forma simplificada, o funcionamento de uma MMU (Memory Management Unit), responsável por traduzir os endereços lógicos utilizados pelos programas em endereços físicos da memória. Assim, é possível acompanhar passo a passo como ocorre a organização e o acesso aos dados.</p>
       </div>
 
       <div class="card">
-        <h2>2. Guia Detalhado: Como utilizar o simulador</h2>
-        <p>
-          Não se preocupe se o conceito parece complexo. Siga estes passos para
-          realizar sua primeira simulação:
-        </p>
+        <h2>2. Objetivo do sistema</h2>
+        <p>O sistema tem como finalidade auxiliar estudantes e professores no aprendizado do gerenciamento de memória por paginação, oferecendo uma representação visual do processo de alocação de páginas, tradução de endereços e ocupação da memória física.</p>
+        <p>Por meio das simulações, o usuário pode compreender conceitos importantes de Sistemas Operacionais de forma mais clara e intuitiva.</p>
+      </div>
 
-        <ol style="margin-left: 20px; line-height: 1.8">
-          <li>
-            <strong>Defina o Cenário (Configurações):</strong>
-            No primeiro card, você verá três campos. O sistema trabalha com
-            "blocos". Digite valores que sejam potências de 2 (como 16, 32, 64,
-            128).
-            <em>Exemplo:</em> Se definir 16 em "Tamanho da Página", você está
-            configurando que cada "caixa" de memória comporta exatamente 16
-            unidades de informação. Clique em
-            <strong>"Aplicar e Reiniciar"</strong> para o sistema calcular a
-            arquitetura.
-          </li>
+      <div class="card">
+        <h2>3. Como funciona a paginação?</h2>
+        <p>Na técnica de paginação, a memória lógica de um processo é dividida em pequenas partes chamadas páginas, todas com o mesmo tamanho.</p>
+        <p>A memória física também é dividida em blocos de tamanho igual, chamados quadros ou frames.</p>
+        <p>Quando um processo é carregado, suas páginas são distribuídas entre os quadros disponíveis, não sendo necessário que fiquem armazenadas em posições consecutivas. Isso reduz problemas de fragmentação externa e melhora o aproveitamento da memória.</p>
+      </div>
 
-          <li>
-            <strong>Construa sua Tabela (Mapeamento):</strong> Imagine que a
-            "Página Lógica" é o que o seu programa <em>acha</em> que existe, e o
-            "Quadro Físico" é onde o dado realmente <em>mora</em> na memória
-            RAM. Na tabela, digite números no campo "Quadro Físico" para indicar
-            para qual lugar da memória cada página deve ir. <em>Dica:</em> Se
-            você deixar um campo em branco, o simulador irá simular um
-            <strong>"Page Fault"</strong> (Falta de Página), que é o sinal de
-            que o dado não está na memória física e o sistema precisaria
-            buscá-lo no disco.
-          </li>
+      <div class="card">
+        <h2>4. Funcionalidades do simulador</h2>
+        <p>O simulador permite:</p>
+        <ul>
+          <li>Criar processos com diferentes tamanhos;</li>
+          <li>Visualizar a divisão dos processos em páginas;</li>
+          <li>Observar a distribuição das páginas nos quadros da memória física;</li>
+          <li>Acompanhar a tradução de endereços lógicos para endereços físicos;</li>
+          <li>Visualizar o estado atual da memória durante a simulação;</li>
+          <li>Reiniciar a simulação para realizar novos testes.</li>
+        </ul>
+      </div>
 
-          <li>
-            <strong>A "Mágica" da Tradução:</strong> No campo "Endereço Lógico
-            Decimal", digite um número (ex: 21). Ao clicar em
-            <strong>"Traduzir"</strong>, o simulador fará o trabalho pesado: ele
-            mostrará como o endereço é convertido em binário, separando os bits
-            que identificam a página dos bits que indicam o "deslocamento" (a
-            posição exata dentro da página).
-          </li>
-
-          <li>
-            <strong>Interprete o Resultado:</strong>
-            O sistema exibirá o cálculo final do endereço físico. Isso prova, na
-            prática, que é possível organizar dados de forma eficiente, mesmo
-            que eles estejam fragmentados na memória física.
-          </li>
+      <div class="card">
+        <h2>5. Como utilizar o sistema</h2>
+        <p>Para utilizar o simulador, basta seguir os passos abaixo:</p>
+        <ol>
+          <li>Informe os dados necessários para criar um processo.</li>
+          <li>Execute a simulação.</li>
+          <li>Observe como o processo é dividido em páginas.</li>
+          <li>Acompanhe a alocação dessas páginas nos quadros da memória física.</li>
+          <li>Analise a tradução dos endereços realizada pelo sistema.</li>
+          <li>Caso deseje, reinicie a simulação e realize novos experimentos.</li>
         </ol>
       </div>
 
       <div class="card">
-        <h2>3. Glossário: Entendendo os termos técnicos</h2>
-        <p>
-          Para dominar o simulador, é fundamental compreender estes conceitos:
-        </p>
+        <h2>6. Entendendo a interface</h2>
+        <p>A interface foi projetada para facilitar a visualização dos conceitos apresentados.</p>
+        <p>Nela, o usuário encontrará áreas destinadas à configuração da simulação, à exibição dos processos criados, à representação da memória física e às informações referentes à tradução de endereços.</p>
+        <p>Cada elemento foi organizado para proporcionar uma experiência de aprendizado simples e intuitiva.</p>
+      </div>
+
+      <div class="card">
+        <h2>7. Conceitos importantes</h2>
         <ul>
-          <li>
-            <strong>Página (Page):</strong> A unidade de divisão lógica da
-            memória do processo. É como se você dividisse um livro em capítulos
-            de tamanho fixo.
-          </li>
-          <li>
-            <strong>Quadro (Frame):</strong> A unidade de divisão da memória
-            física (RAM). O quadro deve ter sempre o mesmo tamanho da página
-            para que o encaixe seja perfeito.
-          </li>
-          <li>
-            <strong>Offset (Deslocamento):</strong> É o endereço interno, ou
-            seja, a posição do byte exato dentro de uma página ou quadro.
-          </li>
-          <li>
-            <strong>Tabela de Páginas:</strong> Funciona como um dicionário. Ela
-            mantém o "endereço" de onde cada página lógica foi guardada na
-            memória física.
-          </li>
-          <li>
-            <strong>Page Fault (Falta de Página):</strong> Um erro de acesso
-            controlado que ocorre quando a página que o programa precisa não foi
-            encontrada na RAM.
-          </li>
+          <li><strong>Processo:</strong> programa em execução que necessita de espaço na memória.</li>
+          <li><strong>Página:</strong> bloco de tamanho fixo em que o processo é dividido.</li>
+          <li><strong>Quadro (Frame):</strong> bloco da memória física destinado ao armazenamento das páginas.</li>
+          <li><strong>Endereço lógico:</strong> endereço gerado pelo programa durante sua execução.</li>
+          <li><strong>Endereço físico:</strong> localização real do dado na memória RAM.</li>
+          <li><strong>MMU (Memory Management Unit):</strong> unidade responsável por converter endereços lógicos em endereços físicos.</li>
         </ul>
       </div>
-      <div
-        class="card"
-        style="text-align: center; border-left: 5px solid var(--btn-bg)"
-      >
-        <h3 style="margin-top: 0">
-          Projeto de Sistemas Operacionais - UFERSA Pau dos Ferros
-        </h3>
+
+      <div class="card">
+        <h2>8. Considerações finais</h2>
+        <p>Este simulador foi desenvolvido com fins educacionais, buscando tornar mais acessíveis os conceitos relacionados ao gerenciamento de memória por paginação.</p>
+        <p>Ao explorar suas funcionalidades, o usuário poderá compreender de maneira prática como os sistemas operacionais organizam a memória e realizam a tradução de endereços, consolidando conhecimentos fundamentais para o estudo da disciplina de Sistemas Operacionais.</p>
+      </div>
+
+      <div class="card" style="text-align: center; border-left: 5px solid var(--btn-bg)">
+        <h3 style="margin-top: 0">Projeto de Sistemas Operacionais - UFERSA Pau dos Ferros</h3>
         <p><strong>Desenvolvedores:</strong></p>
         <ul style="list-style: none; padding: 0; margin: 10px 0">
           <li>Izadora Louyza Silva Figueiredo</li>
@@ -189,52 +118,45 @@
           <li>Victor Hugo de Oliveira</li>
         </ul>
         <p style="font-size: 0.85rem; color: var(--text-muted)">
-          Desenvolvido como requisito da disciplina de Sistemas Operacionais na
-          UFERSA, Campus Pau dos Ferros.
+          Desenvolvido como requisito da disciplina de Sistemas Operacionais na UFERSA, Campus Pau dos Ferros.
         </p>
       </div>
     </main>
-   <script>
-  const isDark = localStorage.getItem("dark-mode") === "true";
-  if (isDark) {
-    document.body.classList.add("dark-mode");
-    updateButtonIcon(true);
-  } else {
-    updateButtonIcon(false);
-  }
 
-  function toggleTheme() {
-    const body = document.body;
-    body.classList.toggle("dark-mode");
-    
-    const isNowDark = body.classList.contains("dark-mode");
-    localStorage.setItem("dark-mode", isNowDark);
+    <script>
+      const isDark = localStorage.getItem("dark-mode") === "true";
+      if (isDark) {
+        document.body.classList.add("dark-mode");
+        updateButtonIcon(true);
+      } else {
+        updateButtonIcon(false);
+      }
 
-    updateButtonIcon(isNowDark);
-  }
+      function toggleTheme() {
+        const body = document.body;
+        body.classList.toggle("dark-mode");
+        const isNowDark = body.classList.contains("dark-mode");
+        localStorage.setItem("dark-mode", isNowDark);
+        updateButtonIcon(isNowDark);
+      }
 
-  function updateButtonIcon(isDark) {
-    const btn = document.getElementById("themeToggleBtn");
-    if (!btn) return;
+      function updateButtonIcon(isDark) {
+        const btn = document.getElementById("themeToggleBtn");
+        if (!btn) return;
+        if (isDark) {
+          btn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4" /><path d="M12 2v2" /><path d="M12 20v2" /><path d="m4.93 4.93 1.41 1.41" /><path d="m17.66 17.66 1.41 1.41" /><path d="M2 12h2" /><path d="M20 12h2" /><path d="m6.34 17.66-1.41 1.41" /><path d="m19.07 4.93-1.41 1.41" /></svg>';
+        } else {
+          btn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401" /></svg>';
+        }
+      }
+    </script>
 
-    if (isDark) {
-      btn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4" /><path d="M12 2v2" /><path d="M12 20v2" /><path d="m4.93 4.93 1.41 1.41" /><path d="m17.66 17.66 1.41 1.41" /><path d="M2 12h2" /><path d="M20 12h2" /><path d="m6.34 17.66-1.41 1.41" /><path d="m19.07 4.93-1.41 1.41" /></svg>';
-    } else {
-      btn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401" /></svg>';
-    }
-  }
-</script>
     <footer>
-      <p>
-        &copy; 2026 Simulador de Paginação - Desenvolvido para fins
-        educacionais.
-      </p>
+      <p>&copy; 2026 Simulador de Paginação - Desenvolvido para fins educacionais.</p>
       <div class="footer-links">
         <a href="ajuda.html">Manual do Usuário</a>
         <span>|</span>
-        <a target="_blank" href="https://github.com/izalouyza/SimuladorMemoria"
-          >Código Fonte</a
-        >
+        <a target="_blank" href="https://github.com/izalouyza/SimuladorMemoria">Código Fonte</a>
       </div>
     </footer>
   </body>
