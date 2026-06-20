@@ -102,8 +102,8 @@ A aplicação segue uma arquitetura simples, separando interface e lógica de pr
 Responsável pela interação com o usuário, entrada de dados e exibição das informações da simulação.
 
 * `index.html`
+* `ajuda.html`
 * `style.css`
-* * `ajuda.html`
 
 ### Lógica da Aplicação
 
