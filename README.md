@@ -1,8 +1,8 @@
-# Simulador de Memória Paginada
+# Simulador de Paginação de Memória Virtual
 
-Projeto desenvolvido para a disciplina de **Sistemas Operacionais**, com o objetivo de simular o funcionamento do **gerenciamento de memória por paginação** de forma visual, didática e interativa.
+Projeto desenvolvido para a disciplina de **Sistemas Operacionais** com o objetivo de demonstrar, de forma visual e interativa, o funcionamento do **gerenciamento de memória por paginação**.
 
-A aplicação permite compreender como um sistema operacional organiza a memória principal, realiza o mapeamento entre páginas e quadros e traduz endereços lógicos em endereços físicos, facilitando o aprendizado de conceitos fundamentais da área.
+O simulador permite configurar os parâmetros da memória, criar o mapeamento entre páginas e quadros, realizar traduções de endereços lógicos para físicos e acompanhar todo o processo por meio de representações visuais que facilitam a compreensão dos conceitos estudados em sala de aula.
 
 ![Linguagem](https://img.shields.io/badge/Linguagem-JavaScript-yellow)
 ![Último commit](https://img.shields.io/github/last-commit/izalouyza/SimuladorMemoria)
@@ -11,81 +11,121 @@ A aplicação permite compreender como um sistema operacional organiza a memóri
 
 # Sumário
 
-* [Autores](#-autores)
-* [Sobre o Projeto](#-sobre-o-projeto)
-* [Objetivos](#-objetivos)
-* [Funcionalidades](#-funcionalidades)
-* [Conceitos Abordados](#-conceitos-abordados)
-* [Tecnologias Utilizadas](#-tecnologias-utilizadas)
-* [Arquitetura do Sistema](#-arquitetura-do-sistema)
-* [Estrutura do Projeto](#-estrutura-do-projeto)
-* [Como Executar](#-como-executar-o-projeto)
+* [Autores](#autores)
+* [Sobre o Projeto](#sobre-o-projeto)
+* [Funcionalidades](#funcionalidades)
+* [Como Funciona](#como-funciona)
+* [Tecnologias Utilizadas](#tecnologias-utilizadas)
+* [Arquitetura do Sistema](#arquitetura-do-sistema)
+* [Estrutura do Projeto](#estrutura-do-projeto)
+* [Como Executar](#como-executar-o-projeto)
+* [Finalidade Acadêmica](#finalidade-acadêmica)
 
 ---
 
 # Autores
 
-**Discentes:**<br> <a href="https://github.com/izalouyza">Izadora Louyza Silva Figueiredo</a><br> <a href="https://github.com/livianlucena">Lívian Maria Lucena Gomes Pinheiro</a><br> <a href="https://github.com/tivitoriarocha">Maria Vitória Fernandes Rocha</a><br> <a href="https://github.com/Victor350br">Victor Hugo de Oliveira</a>
+**Discentes:**
+
+* [Izadora Louyza Silva Figueiredo](https://github.com/izalouyza)
+* [Lívian Maria Lucena Gomes Pinheiro](https://github.com/livianlucena)
+* [Maria Vitória Fernandes Rocha](https://github.com/tivitoriarocha)
+* [Victor Hugo de Oliveira](https://github.com/Victor350br)
 
 ---
 
 # Sobre o Projeto
 
-O gerenciamento de memória é uma das principais responsabilidades de um sistema operacional. Entre as técnicas utilizadas para otimizar a utilização da memória RAM está a **paginação**, que divide os processos em blocos de tamanho fixo chamados **páginas**, armazenados em **quadros** da memória física.
+A paginação é uma técnica de gerenciamento de memória que permite dividir a memória lógica de um processo em blocos de tamanho fixo chamados **páginas**, que são armazenados em **quadros (frames)** da memória física.
 
-Este simulador foi desenvolvido para representar esse mecanismo de maneira intuitiva, permitindo ao usuário visualizar como ocorre a organização da memória e a tradução dos endereços durante a execução de um processo.
+Este simulador foi desenvolvido para auxiliar estudantes na visualização desse processo, permitindo observar como os endereços são traduzidos, como ocorre o mapeamento entre páginas e quadros e como o sistema reage quando uma página não está carregada na memória física.
 
-O sistema busca transformar conceitos teóricos em uma experiência prática, tornando o estudo de Sistemas Operacionais mais acessível.
-
----
-
-# Objetivos
-
-O simulador foi desenvolvido para permitir que o usuário:
-
-* Compreenda o funcionamento da memória paginada;
-* Visualize a divisão da memória lógica em páginas;
-* Entenda a organização da memória física em quadros;
-* Acompanhe o mapeamento entre páginas e quadros;
-* Observe a tradução de endereços lógicos para endereços físicos;
-* Analise os bits destinados ao número da página e ao deslocamento (*offset*);
-* Aprenda os conceitos de gerenciamento de memória por meio de uma simulação visual.
+A aplicação busca transformar conceitos teóricos em uma experiência prática e intuitiva.
 
 ---
 
 # Funcionalidades
 
-| Funcionalidade                   | Descrição                                                                                        |
-| -------------------------------- | ------------------------------------------------------------------------------------------------ |
-| Configuração da memória          | Permite definir o tamanho da memória lógica, memória física e tamanho das páginas.               |
-| Cálculo automático               | Calcula a quantidade de páginas, quadros e os bits necessários para representação dos endereços. |
-| Tabela de páginas                | Exibe o mapeamento entre páginas e quadros da memória física.                                    |
-| Tradução de endereços            | Realiza a conversão de endereços lógicos para físicos.                                           |
-| Identificação da página e offset | Mostra a página correspondente ao endereço informado e seu deslocamento interno.                 |
-| Visualização didática            | Apresenta todas as informações de forma gráfica e organizada para facilitar o aprendizado.       |
+## Configuração da Memória
+
+Permite definir:
+
+* Tamanho da página;
+* Tamanho da memória lógica;
+* Tamanho da memória física.
+
+## Arquitetura de Endereçamento
+
+O sistema calcula automaticamente:
+
+* Quantidade de bits para identificação da página;
+* Quantidade de bits para deslocamento (*offset*);
+* Quantidade de páginas lógicas;
+* Quantidade de quadros físicos.
+
+## Tabela de Páginas
+
+* Mapeamento manual entre páginas e quadros;
+* Edição dinâmica dos quadros;
+* Simulação de entradas inválidas ou ausentes.
+
+## Tradução de Endereços
+
+O usuário pode informar um endereço lógico e acompanhar:
+
+* Separação entre página e deslocamento;
+* Consulta à tabela de páginas;
+* Identificação do quadro físico;
+* Geração do endereço físico correspondente.
+
+## Simulação de Page Fault
+
+Caso uma página não possua um quadro associado, o sistema exibe visualmente a ocorrência de um **Page Fault**, simulando uma exceção de ausência de página na memória física.
+
+## Fluxo Visual da Tradução
+
+A tradução é apresentada em etapas:
+
+```text
+Endereço Lógico
+       ↓
+ Página + Offset
+       ↓
+Tabela de Páginas
+       ↓
+ Quadro + Offset
+       ↓
+Endereço Físico
+```
+
+## Geração de Cenários
+
+O simulador permite:
+
+* Aplicar novas configurações;
+* Reiniciar a memória;
+* Gerar valores aleatórios para testes rápidos.
+
+## Tema Claro e Escuro
+
+A interface possui suporte à alternância entre tema claro e escuro, proporcionando melhor experiência de uso.
 
 ---
 
-# Conceitos Abordados
+# Como Funciona
 
-Durante a utilização do simulador, são explorados diversos conceitos importantes de Sistemas Operacionais, como:
+O funcionamento do simulador segue o mesmo princípio utilizado pelos sistemas operacionais modernos:
 
-* Gerenciamento de memória;
-* Memória lógica e memória física;
-* Paginação;
-* Quadros (*frames*);
-* Tabela de páginas;
-* Endereços lógicos;
-* Endereços físicos;
-* Tradução de endereços;
-* Deslocamento (*offset*);
-* Unidade de Gerenciamento de Memória (**MMU**).
+1. O endereço lógico é dividido em número da página e deslocamento.
+2. A tabela de páginas é consultada.
+3. O quadro físico correspondente é localizado.
+4. O deslocamento é preservado.
+5. O endereço físico é gerado.
+6. Caso não exista um quadro associado, ocorre um **Page Fault**.
 
 ---
 
 # Tecnologias Utilizadas
-
-O projeto foi desenvolvido utilizando tecnologias web simples, tornando sua execução rápida e acessível.
 
 * HTML5
 * CSS3
@@ -95,25 +135,23 @@ O projeto foi desenvolvido utilizando tecnologias web simples, tornando sua exec
 
 # Arquitetura do Sistema
 
-A aplicação segue uma arquitetura simples, separando interface e lógica de processamento.
+## Interface
 
-### Interface
-
-Responsável pela interação com o usuário, entrada de dados e exibição das informações da simulação.
+Responsável pela interação com o usuário e exibição dos resultados.
 
 * `index.html`
 * `ajuda.html`
 * `style.css`
 
-### Lógica da Aplicação
+## Lógica da Aplicação
 
-Responsável pelos cálculos relacionados à paginação, geração da tabela de páginas e tradução de endereços.
+Responsável pelos cálculos e simulações.
 
 * `app.js`
 
 ---
 
-# 📁 Estrutura do Projeto
+# Estrutura do Projeto
 
 ```text
 SimuladorMemoria/
@@ -134,42 +172,33 @@ SimuladorMemoria/
 
 ## Pré-requisitos
 
-* Navegador web atualizado; ou
-* Visual Studio Code com a extensão **Live Server**.
+* Navegador Web atualizado; ou
+* Visual Studio Code com a extensão Live Server.
 
----
-
-## 1. Clone o repositório
+## Clonar o repositório
 
 ```bash
-git clone https://github.com/izalouyza/SimuladorMemoria
+git clone https://github.com/izalouyza/SimuladorMemoria.git
 ```
 
----
-
-## 2. Acesse a pasta do projeto
+## Acessar a pasta
 
 ```bash
 cd SimuladorMemoria
 ```
 
----
+## Executar
 
-## 3. Execute a aplicação
+Abra o arquivo:
 
-Abra o arquivo **`src/index.html`** diretamente no navegador ou utilize o **Live Server** no Visual Studio Code.
+```text
+src/index.html
+```
 
-Caso utilize o Live Server:
-
-1. Abra a pasta do projeto no VS Code;
-2. Navegue até `src/index.html`;
-3. Clique com o botão direito sobre o arquivo;
-4. Selecione **Open with Live Server**.
-
-O simulador será iniciado automaticamente no navegador.
+ou utilize a extensão **Live Server** do Visual Studio Code.
 
 ---
 
 # Finalidade Acadêmica
 
-Este projeto possui caráter exclusivamente educacional e foi desenvolvido como atividade da disciplina de **Sistemas Operacionais**, servindo como ferramenta de apoio ao estudo do gerenciamento de memória por paginação e da tradução de endereços em sistemas computacionais.
+Este projeto possui caráter educacional e foi desenvolvido como atividade da disciplina de **Sistemas Operacionais**, servindo como ferramenta de apoio para o estudo de gerenciamento de memória, paginação, tradução de endereços e funcionamento básico da MMU.
