@@ -284,7 +284,6 @@ body.dark-mode .btn-theme:hover {
   opacity: 0.9;
 }
 
-/* Controla a rolagem e mantém a consistência */
 .table-container {
   margin-top: 20px;
   max-height: 280px; 
@@ -490,7 +489,6 @@ footer {
   flex: 1;
 }
 
-/* Customização de Scrollbar */
 .table-container::-webkit-scrollbar {
   width: 8px;              
   height: 8px;              
@@ -509,16 +507,13 @@ footer {
   scrollbar-color: var(--input-border) var(--card-bg);
 }
 
-/* ==========================================================================
-   COMPUTADOR (ALINHAMENTO EM GRID EQUILIBRADO >= 900px)
-   ========================================================================== */
 @media (min-width: 900px) {
   .dashboard {
     display: grid !important;
     grid-template-columns: 350px 1fr !important;
-    grid-auto-rows: minmax(min-content, max-content) !important; /* Faz a linha se moldar dinamicamente ao conteúdo */
+    grid-auto-rows: minmax(min-content, max-content) !important; 
     gap: 25px !important;
-    align-items: stretch !important; /* Força os dois cards a terem EXATAMENTE a mesma altura no cenário base */
+    align-items: stretch !important; 
   }
 
   .dashboard > .card:nth-child(1) {
@@ -527,8 +522,8 @@ footer {
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    height: 100% !important; /* Mantém os tamanhos perfeitamente idênticos */
-    max-height: 400px !important; /* Limita uma altura máxima confortável para que ele pare de crescer e não deforme quando o Card 2 expandir com muitas linhas */
+    height: 100% !important; 
+    max-height: 400px !important; 
   }
 
   .dashboard > .card:nth-child(2) {
@@ -703,4 +698,12 @@ footer {
   50% {
     box-shadow: 0 0 15px rgba(49, 130, 206, 0.6);
   }
+}
+
+.form-group input:focus,
+.input-frame:focus {
+  outline: none;
+  border-color: var(--btn-bg) !important;
+  box-shadow: 0 0 0 3px rgba(49, 130, 206, 0.2);
+  transition: all 0.2s ease;
 }
