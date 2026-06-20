@@ -2,33 +2,63 @@
 let pageSize, logicSize, physicalSize;
 let bitsN, bitsM, totalPages, totalFrames;
 
-// Inicialização padrão modificada para gerar dados aleatórios válidos
+/**
+ * 1. Função executada ao carregar a página (F5) ou para resetar tudo para 2.
+ * Inicializa os tamanhos em 2, 2, 2 e deixa a tabela pré-preenchida com 0.
+ */
 function init() {
-  // Lista de potências de 2 viáveis para o simulador educacional
-  const potenciasPSize = [4, 8, 16, 32];
-  const potenciasLSize = [32, 64, 128, 256];
-  const potenciasPhSize = [64, 128, 256, 512];
+  document.getElementById("pageSize").value = 2;
+  document.getElementById("logicSize").value = 2;
+  document.getElementById("physicalSize").value = 2;
+  document.getElementById("logicalAddressInput").value = 0;
 
-  // Escolhe tamanhos aleatórios iniciais
+  // Atualiza as configurações passando false para NÃO randomizar os quadros físicos
+  atualizarConfiguracoes(false);
+}
+
+/**
+ * 2. Função do botão "Aplicar e Reiniciar".
+ * Se os valores na tela já forem 2, 2, 2, ela limpa/reinicia tudo para o padrão. 
+ * Se o usuário mudou os valores, ela aplica a mudança com a tabela vazia para preenchimento.
+ */
+function aplicarOuReiniciar() {
+  const pSize = parseInt(document.getElementById("pageSize").value);
+  const lSize = parseInt(document.getElementById("logicSize").value);
+  const phSize = parseInt(document.getElementById("physicalSize").value);
+
+  // Se já estiver tudo em 2, funciona como Reiniciar voltando para o padrão com 0
+  if (pSize === 2 && lSize === 2 && phSize === 2) {
+    init();
+  } else {
+    // Se mudou os valores, apenas aplica criando a tabela limpa (false)
+    atualizarConfiguracoes(false);
+  }
+}
+
+/**
+ * 3. Função do botão "Randomizar Valores".
+ * Sorteia os tamanhos do sistema E sorteia o mapeamento dos Quadros Físicos (f).
+ */
+function randomizarValores() {
+  const potenciasPSize = [2, 4, 8, 16, 32];
+  const potenciasLSize = [2, 4, 8, 16, 32, 64, 128, 256];
+  const potenciasPhSize = [2, 4, 8, 16, 32, 64, 128, 256, 512];
+
   const randPSize = potenciasPSize[Math.floor(Math.random() * potenciasPSize.length)];
-  
-  // Filtra memórias lógica e física para garantir que sejam maiores ou iguais ao tamanho da página
   const opcoesLSize = potenciasLSize.filter(v => v >= randPSize);
   const opcoesPhSize = potenciasPhSize.filter(v => v >= randPSize);
   
   const randLSize = opcoesLSize[Math.floor(Math.random() * opcoesLSize.length)];
   const randPhSize = opcoesPhSize[Math.floor(Math.random() * opcoesPhSize.length)];
-
-  // Escolhe um endereço lógico aleatório dentro do limite da memória lógica gerada
   const randLogicalAddr = Math.floor(Math.random() * randLSize);
 
-  // Aplica os valores gerados nos inputs correspondentes da tela
   document.getElementById("pageSize").value = randPSize;
   document.getElementById("logicSize").value = randLSize;
   document.getElementById("physicalSize").value = randPhSize;
   document.getElementById("logicalAddressInput").value = randLogicalAddr;
 
-  atualizarConfiguracoes(true); // Flag para carregar dados aleatórios na tabela
+  // Passa true para preencher os Quadros Físicos (f) de forma aleatória também!
+  atualizarConfiguracoes(true);
 }
 
 function isPowerOfTwo(num) {
@@ -39,7 +69,7 @@ function getLog2(num) {
   return Math.log2(num);
 }
 
-function atualizarConfiguracoes(isInitial = false) {
+function atualizarConfiguracoes(randomizarMapeamento = false) {
   const pSize = parseInt(document.getElementById("pageSize").value);
   const lSize = parseInt(document.getElementById("logicSize").value);
   const phSize = parseInt(document.getElementById("physicalSize").value);
@@ -48,88 +78,78 @@ function atualizarConfiguracoes(isInitial = false) {
   errorDiv.style.display = "none";
   errorDiv.innerText = "";
 
-  // Validações obrigatórias baseadas em Hardware (Potências de 2)
   if (!isPowerOfTwo(pSize) || !isPowerOfTwo(lSize) || !isPowerOfTwo(phSize)) {
-    errorDiv.innerText =
-      "Erro: Todos os tamanhos configurados devem ser potências de 2 (Ex.: 4, 8, 16, 64, 128...).";
+    errorDiv.innerText = "Erro: Todos os tamanhos configurados devem ser potências de 2 (Ex.: 2, 4, 8, 16...).";
     errorDiv.style.display = "block";
     return;
   }
 
   if (pSize > lSize) {
-    errorDiv.innerText =
-      "Erro: O tamanho da página não pode ser maior que o tamanho da memória lógica.";
+    errorDiv.innerText = "Erro: O tamanho da página não pode ser maior que o tamanho da memória lógica.";
     errorDiv.style.display = "block";
     return;
   }
 
-  // Atribuição das variáveis estruturais
   pageSize = pSize;
   logicSize = lSize;
   physicalSize = phSize;
 
-  bitsN = getLog2(pageSize); // Bits do deslocamento d
-  bitsM = getLog2(logicSize); // Bits totais do endereço lógico
+  bitsN = getLog2(pageSize);
+  bitsM = getLog2(logicSize);
 
-  let bitsP = bitsM - bitsN; // Bits do número de página p
+  let bitsP = bitsM - bitsN;
   totalPages = logicSize / pageSize;
   totalFrames = physicalSize / pageSize;
 
-  // Atualiza visualização dos blocos de bits na tela
   document.getElementById("label-bits-p").innerText = bitsP;
   document.getElementById("label-bits-d").innerText = bitsN;
 
-  // Renderiza a estrutura física da Tabela de Páginas
   const tbody = document.querySelector("#page-table tbody");
   tbody.innerHTML = "";
 
-  // Geração de mapeamento inicial aleatório e sem repetição de quadros
   let defaultMapping = {};
-  if (isInitial) {
+  
+  // Se randomizarMapeamento for true, gera os quadros físicos de forma aleatória
+  if (randomizarMapeamento) {
     let disponiveis = [];
-    for (let f = 0; f < totalFrames; f++) {
-      disponiveis.push(f);
-    }
-    
-    // Embaralha os quadros físicos disponíveis (Algoritmo Fisher-Yates)
+    for (let f = 0; f < totalFrames; f++) { disponiveis.push(f); }
     for (let i = disponiveis.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
       [disponiveis[i], disponiveis[j]] = [disponiveis[j], disponiveis[i]];
     }
-
-    // Distribui os quadros embaralhados para as páginas existentes
     for (let p = 0; p < totalPages; p++) {
-      // Deixa uma chance de 15% de vir em branco de propósito para demonstrar o Page Fault nativamente
       if (Math.random() > 0.15 && disponiveis.length > 0) {
         defaultMapping[p] = disponiveis.pop();
       }
     }
+  } else if (pSize === 2 && lSize === 2 && phSize === 2) {
+    // ATUALIZAÇÃO: Se for a inicialização padrão (2, 2, 2), pré-preenche a página 0 com o quadro 0
+    defaultMapping[0] = 0;
   }
-
+  
   for (let i = 0; i < totalPages; i++) {
     let tr = document.createElement("tr");
+    tr.id = `page-row-${i}`;
     let valueMapped = defaultMapping[i] !== undefined ? defaultMapping[i] : "";
 
     tr.innerHTML = `
-            <td class="highlight-p">${i}</td>
-            <td>
-                <input type="number" min="0" max="${totalFrames - 1}" 
-                       class="input-frame" id="frame-input-${i}" 
-                       value="${valueMapped}" placeholder="Ex.: 0-${totalFrames - 1}">
-            </td>
-        `;
+        <td class="highlight-p" style="font-weight: bold;">${i}</td>
+        <td>
+            <input type="number" min="0" max="${totalFrames - 1}" 
+                   class="input-frame" id="frame-input-${i}" 
+                   value="${valueMapped}" placeholder="Ex.: 0-${totalFrames - 1}">
+        </td>
+    `;
+    
     tbody.appendChild(tr);
   }
 
-  // Reseta o bloco de logs/output
   document.getElementById("translation-output").innerHTML =
     '<p class="text-muted">Configuração atualizada com sucesso. Insira um endereço lógico para testar a tradução.</p>';
 }
 
 function traduzirEndereco() {
-  const addrInput = parseInt(
-    document.getElementById("logicalAddressInput").value,
-  );
+  const addrInput = parseInt(document.getElementById("logicalAddressInput").value);
   const output = document.getElementById("translation-output");
 
   if (isNaN(addrInput) || addrInput < 0 || addrInput >= logicSize) {
@@ -137,26 +157,48 @@ function traduzirEndereco() {
     return;
   }
 
-  // 1. Divisão e Cálculo Matemático da paginação
   let p = Math.floor(addrInput / pageSize);
   let d = addrInput % pageSize;
 
-  // 2. Manipulação binária textual para exibição pedagógica
+  document.querySelectorAll("#page-table tbody tr").forEach(row => row.classList.remove("row-flash"));
+  const targetRow = document.getElementById(`page-row-${p}`);
+  if (targetRow) {
+    targetRow.classList.add("row-flash");
+    targetRow.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }
+
   let bitsPCount = bitsM - bitsN;
   let binaryStr = addrInput.toString(2).padStart(bitsM, "0");
-
   let pBinStr = binaryStr.substring(0, bitsPCount);
   let dBinStr = binaryStr.substring(bitsPCount);
 
-  // 3. Consulta ao mapeamento dinâmico feito pelo usuário na tabela
   const frameInputElement = document.getElementById(`frame-input-${p}`);
   let frameValueRaw = frameInputElement ? frameInputElement.value : "";
   let f = parseInt(frameValueRaw);
 
-  // Inicialização da string de visualização passo a passo
+  output.innerHTML = "";
+
+  let isPageFault = (frameValueRaw === "" || isNaN(f) || f < 0 || f >= totalFrames);
+  let templateId = isPageFault ? "tmpl-visual-erro" : "tmpl-visual-sucesso";
+  
+  const templateElement = document.getElementById(templateId);
+  const cloneVisual = templateElement.content.cloneNode(true);
+
+  cloneVisual.querySelectorAll('[data-field="addrInput"]').forEach(el => el.innerText = addrInput);
+  cloneVisual.querySelectorAll('[data-field="p"]').forEach(el => el.innerText = p);
+  cloneVisual.querySelectorAll('[data-field="d"]').forEach(el => el.innerText = d);
+  
+  if (!isPageFault) {
+    let physicalAddress = f * pageSize + d;
+    cloneVisual.querySelectorAll('[data-field="f"]').forEach(el => el.innerText = f);
+    cloneVisual.querySelectorAll('[data-field="physicalAddress"]').forEach(el => el.innerText = physicalAddress);
+  }
+
+  output.appendChild(cloneVisual);
+
+  // GERAÇÃO DOS LOGS MATEMÁTICOS COMPLETOS (INJETADOS ABAIXO DO GRÁFICO)
   let htmlLog = `<h3>Resultado da Tradução Matemática e de Bits</h3><br>`;
 
-  // Passo 1: Fatiamento Binário
   htmlLog += `
         <div class="step">
             <div class="step-title">Passo 1: Conversão Binária e Divisão de Bits</div>
@@ -170,7 +212,6 @@ function traduzirEndereco() {
         </div>
     `;
 
-  // Passo 2: Conversão dos termos calculados de volta à base decimal
   htmlLog += `
         <div class="step">
             <div class="step-title">Passo 2: Identificação dos Componentes</div>
@@ -182,14 +223,13 @@ function traduzirEndereco() {
         </div>
     `;
 
-  // Passo 3 e 4: Mapeamento e Tratamento de Falta de Página (Page Fault)
-  if (frameValueRaw === "" || isNaN(f) || f < 0 || f >= totalFrames) {
+  if (isPageFault) {
     htmlLog += `
             <div class="step" style="border-left-color: #ef4444;">
                 <div class="step-title" style="color: #ef4444;">Passo 3: Mapeamento da Tabela de Páginas (PAGE FAULT)</div>
                 <div class="step-desc">
                     A página <span class="highlight-p">${p}</span> foi consultada na tabela, mas não possui um mapeamento válido para um quadro da memória física (Intervalo permitido: 0 a ${totalFrames - 1}).<br>
-                    <strong style="color: #ef4444;">Resultado:</strong> Ocorreu uma Falta de Página (Page Fault). O Sistema Operacional precisará buscar a página na memória secundária.
+                    <strong style="color: #ef4444;">Resultado:</strong> Ocorreu uma Falta de Página (Page Fault). O O.S. precisará alocar este bloco.
                 </div>
             </div>
         `;
@@ -218,8 +258,10 @@ function traduzirEndereco() {
         `;
   }
 
-  output.innerHTML = htmlLog;
+  const divLog = document.createElement("div");
+  divLog.innerHTML = htmlLog;
+  output.appendChild(divLog);
 }
 
-// Vincula a inicialização automática do simulador ao carregamento do script
+// Inicializa com 2, 2, 2 e tabela preenchida com 0 ao carregar a página
 window.onload = init;

@@ -88,6 +88,18 @@ header h1 {
   white-space: nowrap;
   border-left: 4px solid var(--btn-bg);
   padding-left: 15px;
+  
+  /* ---- ADICIONADO PARA ALINHAMENTO DO ÍCONE NO H1 ---- */
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 12px !important;
+}
+
+/* ---- ADICIONADO PARA CONTROLAR O TAMANHO DO ÍCONE DO H1 ---- */
+.header-icon {
+  width: 32px !important;
+  height: 32px !important;
+  flex-shrink: 0;
 }
 
 body:not(.dark-mode) header {
@@ -153,6 +165,7 @@ body.dark-mode .btn-theme:hover {
   max-width: 1300px;
   margin: 0 auto;
   width: 100%;
+  flex: 1;
 }
 
 .card {
@@ -271,9 +284,10 @@ body.dark-mode .btn-theme:hover {
   opacity: 0.9;
 }
 
+/* Controla a rolagem e mantém a consistência */
 .table-container {
   margin-top: 20px;
-  max-height: 420px; 
+  max-height: 280px; 
   overflow-y: auto;   
   padding-right: 4px;
 }
@@ -428,7 +442,7 @@ body.dark-mode .theme-toggle-container button.btn-theme {
 }
 
 footer {
-  margin-top: auto;
+  margin-top: auto; 
   padding: 20px;
   text-align: center;
   border-top: 1px solid var(--border-color);
@@ -466,14 +480,14 @@ footer {
   transform: scale(1.1);
 }
 
-/* CORREÇÃO AQUI: Alinhando a largura do layout do Manual de Ajuda com a do Dashboard principal */
 .manual-layout {
-  max-width: 1300px; /* Alterado de 800px para 1300px para casar perfeito */
+  max-width: 1300px; 
   margin: 0 auto;
   display: flex;
   flex-direction: column;
   gap: 25px;
   width: 100%;
+  flex: 1;
 }
 
 /* Customização de Scrollbar */
@@ -496,25 +510,32 @@ footer {
 }
 
 /* ==========================================================================
-   COMPUTADOR (ALINHAMENTO LADO A LADO CORRIGIDO EM >= 900px)
+   COMPUTADOR (ALINHAMENTO EM GRID EQUILIBRADO >= 900px)
    ========================================================================== */
 @media (min-width: 900px) {
   .dashboard {
     display: grid !important;
     grid-template-columns: 350px 1fr !important;
+    grid-auto-rows: minmax(min-content, max-content) !important; /* Faz a linha se moldar dinamicamente ao conteúdo */
     gap: 25px !important;
+    align-items: stretch !important; /* Força os dois cards a terem EXATAMENTE a mesma altura no cenário base */
   }
 
   .dashboard > .card:nth-child(1) {
     grid-column: 1 !important;
     grid-row: 1 !important;
-    align-self: start !important; 
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    height: 100% !important; /* Mantém os tamanhos perfeitamente idênticos */
+    max-height: 400px !important; /* Limita uma altura máxima confortável para que ele pare de crescer e não deforme quando o Card 2 expandir com muitas linhas */
   }
 
   .dashboard > .card:nth-child(2) {
     grid-column: 2 !important;
     grid-row: 1 !important;
     width: 100% !important;
+    height: 100% !important;
   }
 
   .dashboard > .card:nth-child(3) {
@@ -524,13 +545,10 @@ footer {
   }
 }
 
-/* ==========================================================================
-   CELULAR (RESETS FLUIDOS - MOBILE < 768px)
-   ========================================================================== */
 @media (max-width: 768px) {
   body {
     padding: 10px;
-    display: block;
+    display: flex; 
     overflow-x: hidden;
   }
 
@@ -548,6 +566,12 @@ footer {
     border-bottom: 3px solid var(--btn-bg) !important;
     padding-left: 0 !important;
     padding-bottom: 8px !important;
+    
+    display: flex !important;
+    flex-direction: row !important;
+    justify-content: center !important;
+    align-items: center !important;
+    gap: 12px !important;
   }
 
   .dashboard, .manual-layout {
@@ -587,5 +611,96 @@ footer {
 
   .manual-title {
     font-size: 1.6rem !important;
+  }
+}
+
+@keyframes pulse-highlight {
+  0% { background-color: rgba(0, 123, 255, 0.4); transform: scale(1.02); }
+  50% { background-color: rgba(0, 123, 255, 0.2); }
+  100% { background-color: transparent; transform: scale(1); }
+}
+
+.row-flash {
+  animation: pulse-highlight 1.8s ease-in-out;
+  border: 2px solid var(--accent-color) !important;
+}
+
+@keyframes slide-up {
+  from { opacity: 0; transform: translateY(15px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.visual-flow {
+  animation: slide-up 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.fluxo-seta {
+  color: var(--accent-color);
+  font-size: 1.4rem;
+  user-select: none;
+  font-family: sans-serif;
+}
+.visual-flow {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.visual-flow > div,
+.visual-flow > span,
+.visual-flow > svg,
+.visual-flow > .bit-box-container {
+  opacity: 0;
+  transform: translateY(-10px);
+  animation: fade-in-drop 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.visual-flow > div:nth-child(1) {
+  animation-delay: 0.1s;
+}
+
+.visual-flow > span:nth-child(2),
+.visual-flow > svg:nth-child(2) {
+  animation-delay: 0.3s;
+}
+
+.visual-flow > div:nth-child(3),
+.visual-flow > .bit-box-container:nth-child(3) {
+  animation-delay: 0.5s;
+}
+
+.visual-flow > div:nth-child(4) {
+  animation-delay: 0.8s;
+}
+
+.visual-flow > div:nth-child(5) {
+  animation-delay: 1.1s;
+}
+
+.visual-flow > span:nth-child(6),
+.visual-flow > svg:nth-child(6) {
+  animation-delay: 1.3s;
+}
+
+.visual-flow > div:nth-child(7) {
+  animation: 
+    fade-in-drop 0.5s cubic-bezier(0.16, 1, 0.3, 1) 1.5s forwards,
+    pulse-glow 2s infinite ease-in-out 2s;
+}
+
+
+@keyframes fade-in-drop {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulse-glow {
+  0%, 100% {
+    box-shadow: 0 0 5px rgba(49, 130, 206, 0.2);
+  }
+  50% {
+    box-shadow: 0 0 15px rgba(49, 130, 206, 0.6);
   }
 }
