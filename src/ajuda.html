@@ -13,6 +13,35 @@
         flex-direction: column;
         gap: 20px;
       }
+      
+      /* Ajuste cirúrgico para consertar o topo e o fundo no celular */
+      @media (max-width: 768px) {
+        header {
+          flex-direction: column !important;
+          gap: 15px !important;
+          padding: 15px !important;
+          text-align: center !important;
+        }
+
+        header h1 {
+          white-space: normal !important; /* Permite que o título quebre linha e não estoure a tela */
+          font-size: 1.2rem !important;  /* Diminui o texto para caber em telas pequenas */
+          border-left: none !important;
+          border-bottom: 3px solid var(--btn-bg) !important;
+          padding-left: 0 !important;
+          padding-bottom: 8px !important;
+        }
+
+        .manual-layout {
+          padding: 0 15px !important;
+          margin-top: 10px !important;
+        }
+
+        .manual-title {
+          font-size: 1.6rem !important;
+          width: 100% !important;
+        }
+      }
     </style>
   </head>
   <body>
@@ -35,7 +64,7 @@
 
     <main class="manual-layout">
       <h2 class="manual-title" style="text-align: center">Manual do Usuário</h2>
-
+    
       <div class="card">
         <h2>1. O que é este simulador?</h2>
         <p>Este simulador foi desenvolvido como uma ferramenta didática e interativa para facilitar a compreensão do conceito de Gerenciamento de Memória, com foco na técnica de Paginação, um dos principais mecanismos utilizados pelos sistemas operacionais modernos.</p>

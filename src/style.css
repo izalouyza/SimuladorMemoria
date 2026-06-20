@@ -43,7 +43,7 @@ body.dark-mode {
 
   --logic-color: #4a7bb0;
   --physical-color: #417a5a;
-  --offset-color: #718096;
+  --offset-color: #2a4167;
 }
 
 * {
@@ -380,21 +380,9 @@ th {
   margin-top: 20px;
   margin-bottom: 30px;
   padding-bottom: 10px;
-  border-bottom: 3px solid var(--btn-bg);
+  border-bottom: 5px solid var(--btn-bg); /* Esta é a linha longa */
   display: inline-block;
   width: 100%;
-}
-
-.manual-title::after {
-  content: "";
-  position: absolute;
-  bottom: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 80px;
-  height: 4px;
-  background-color: var(--btn-bg);
-  border-radius: 2px;
 }
 
 .card ul,
@@ -483,4 +471,76 @@ body {
 
 .dashboard {
   flex: 1;
+}
+
+/* ==========================================================================
+   REGRAS ADICIONADAS PARA ADAPTAÇÃO EM CELULAR (MOBILE RESPONSIVENESS)
+   ========================================================================== */
+
+@media (max-width: 768px) {
+  body {
+    padding: 10px;
+  }
+
+  header {
+    flex-direction: column;
+    gap: 15px;
+    padding: 15px;
+    text-align: center;
+  }
+
+  header h1 {
+    white-space: normal; /* Permite que o título quebre linha no celular */
+    font-size: 1.3rem;
+    border-left: none;
+    border-bottom: 3px solid var(--btn-bg);
+    padding-left: 0;
+    padding-bottom: 8px;
+  }
+
+  .dashboard {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .card {
+    padding: 15px;
+    margin-bottom: 0;
+  }
+
+  .translation-trigger {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+    max-width: 100%;
+  }
+
+  .btn-auto {
+    width: 100%;
+  }
+
+  /* Evita estouro de tabelas em telas muito pequenas */
+  .table-container {
+    overflow-x: auto;
+    width: 100%;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* Ajuste para os blocos de bits (p e d) empilharem corretamente se necessário */
+  .bit-box-container {
+    flex-wrap: wrap;
+  }
+
+  .bit-chunk {
+    flex: 1 1 120px;
+  }
+  
+  .chunk-p {
+    border-radius: 6px 6px 0 0;
+  }
+  
+  .chunk-d {
+    border-radius: 0 0 6px 6px;
+  }
 }
