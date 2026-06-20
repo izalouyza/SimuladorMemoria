@@ -2,14 +2,33 @@
 let pageSize, logicSize, physicalSize;
 let bitsN, bitsM, totalPages, totalFrames;
 
-// Inicialização padrão com o exemplo prático de aula
+// Inicialização padrão modificada para gerar dados aleatórios válidos
 function init() {
-  document.getElementById("pageSize").value = 16;
-  document.getElementById("logicSize").value = 64;
-  document.getElementById("physicalSize").value = 128;
-  document.getElementById("logicalAddressInput").value = 21;
+  // Lista de potências de 2 viáveis para o simulador educacional
+  const potenciasPSize = [4, 8, 16, 32];
+  const potenciasLSize = [32, 64, 128, 256];
+  const potenciasPhSize = [64, 128, 256, 512];
 
-  atualizarConfiguracoes(true); // Flag para carregar dados padrão na tabela
+  // Escolhe tamanhos aleatórios iniciais
+  const randPSize = potenciasPSize[Math.floor(Math.random() * potenciasPSize.length)];
+  
+  // Filtra memórias lógica e física para garantir que sejam maiores ou iguais ao tamanho da página
+  const opcoesLSize = potenciasLSize.filter(v => v >= randPSize);
+  const opcoesPhSize = potenciasPhSize.filter(v => v >= randPSize);
+  
+  const randLSize = opcoesLSize[Math.floor(Math.random() * opcoesLSize.length)];
+  const randPhSize = opcoesPhSize[Math.floor(Math.random() * opcoesPhSize.length)];
+
+  // Escolhe um endereço lógico aleatório dentro do limite da memória lógica gerada
+  const randLogicalAddr = Math.floor(Math.random() * randLSize);
+
+  // Aplica os valores gerados nos inputs correspondentes da tela
+  document.getElementById("pageSize").value = randPSize;
+  document.getElementById("logicSize").value = randLSize;
+  document.getElementById("physicalSize").value = randPhSize;
+  document.getElementById("logicalAddressInput").value = randLogicalAddr;
+
+  atualizarConfiguracoes(true); // Flag para carregar dados aleatórios na tabela
 }
 
 function isPowerOfTwo(num) {
@@ -64,10 +83,27 @@ function atualizarConfiguracoes(isInitial = false) {
   const tbody = document.querySelector("#page-table tbody");
   tbody.innerHTML = "";
 
-  // Carga de mapeamento padrão (Mapeando Página 1 para o Quadro 5 conforme roteiro de teste)
+  // Geração de mapeamento inicial aleatório e sem repetição de quadros
   let defaultMapping = {};
-  if (isInitial && totalPages >= 4 && totalFrames > 5) {
-    defaultMapping = { 0: 2, 1: 5, 2: 1, 3: 0 };
+  if (isInitial) {
+    let disponiveis = [];
+    for (let f = 0; f < totalFrames; f++) {
+      disponiveis.push(f);
+    }
+    
+    // Embaralha os quadros físicos disponíveis (Algoritmo Fisher-Yates)
+    for (let i = disponiveis.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [disponiveis[i], disponiveis[j]] = [disponiveis[j], disponiveis[i]];
+    }
+
+    // Distribui os quadros embaralhados para as páginas existentes
+    for (let p = 0; p < totalPages; p++) {
+      // Deixa uma chance de 15% de vir em branco de propósito para demonstrar o Page Fault nativamente
+      if (Math.random() > 0.15 && disponiveis.length > 0) {
+        defaultMapping[p] = disponiveis.pop();
+      }
+    }
   }
 
   for (let i = 0; i < totalPages; i++) {
